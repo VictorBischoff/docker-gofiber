@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/victorbischoff/structs-api/pkg/apistructs"
 	"github.com/victorbischoff/structs-api/pkg/database"
+	"github.com/victorbischoff/structs-api/pkg/entities"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -20,13 +20,13 @@ func CheckPasswordHash(password, hash string) bool {
 }
 
 func GetAllUsers(c *fiber.Ctx) error {
-	var users []apistructs.User
+	var users []entities.User
 	database.DB.Find(&users)
 	return c.Status(200).JSON(users)
 }
 
 func NewUser(c *fiber.Ctx) error {
-	user := new(apistructs.User)
+	user := new(entities.User)
 	if err := c.BodyParser(user); err != nil {
 		return c.Status(500).JSON(fiber.Map{"status": "error", "message": "Review your input", "data": err})
 	}
@@ -42,7 +42,7 @@ func NewUser(c *fiber.Ctx) error {
 	if err := database.DB.Create(&user).Error; err != nil {
 		return c.Status(500).JSON(fiber.Map{"status": "error", "message": "Couldn't create user", "data": err})
 	}
-	newUser := apistructs.User{
+	newUser := entities.User{
 		UserName: user.UserName,
 		Password: user.Password,
 		Age:      user.Age,

@@ -3,7 +3,7 @@ package database
 import (
 	"log"
 
-	"github.com/victorbischoff/structs-api/pkg/apistructs"
+	"github.com/victorbischoff/structs-api/pkg/entities"
 	"github.com/victorbischoff/structs-api/pkg/utilities"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -27,6 +27,6 @@ func InitDb() error {
 	if err != nil {
 		panic("failed to connect database")
 	}
-	DB.AutoMigrate(&apistructs.User{}, &apistructs.ContactInfo{})
+	DB.AutoMigrate(&entities.User{}, &entities.ContactInfo{})
 	return nil
 }

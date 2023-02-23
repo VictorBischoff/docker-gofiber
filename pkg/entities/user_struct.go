@@ -1,4 +1,4 @@
-package apistructs
+package entities
 
 import "gorm.io/gorm"
 
