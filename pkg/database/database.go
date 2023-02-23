@@ -11,8 +11,6 @@ import (
 
 var DB *gorm.DB
 
-//const dsn string = "host=100.84.8.61 user=victor password=victor dbname=postgres port=5432 sslmode=disable TimeZone=Europe/Copenhagen"
-
 func loadDsn() string {
 	config, err := utilities.LoadConfigPath("./")
 	if err != nil {
